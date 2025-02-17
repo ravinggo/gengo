@@ -24,10 +24,12 @@ import (
 // Ref makes a reference to the given type. It can only be used for e.g.
 // passing to namers.
 func Ref(packageName, typeName string) *Type {
-	return &Type{Name: Name{
-		Name:    typeName,
-		Package: packageName,
-	}}
+	return &Type{
+		Name: Name{
+			Name:    typeName,
+			Package: packageName,
+		},
+	}
 }
 
 // A type name may have a package qualifier.
@@ -483,6 +485,10 @@ var (
 		Name: Name{Name: "int16"},
 		Kind: Builtin,
 	}
+	Int8 = &Type{
+		Name: Name{Name: "int8"},
+		Kind: Builtin,
+	}
 	Int = &Type{
 		Name: Name{Name: "int"},
 		Kind: Builtin,
@@ -499,6 +505,12 @@ var (
 		Name: Name{Name: "uint16"},
 		Kind: Builtin,
 	}
+
+	Uint8 = &Type{
+		Name: Name{Name: "uint8"},
+		Kind: Builtin,
+	}
+
 	Uint = &Type{
 		Name: Name{Name: "uint"},
 		Kind: Builtin,
@@ -537,12 +549,12 @@ var (
 			"int64":   Int64,
 			"int32":   Int32,
 			"int16":   Int16,
-			"int8":    Byte,
+			"int8":    Int8,
 			"uint":    Uint,
 			"uint64":  Uint64,
 			"uint32":  Uint32,
 			"uint16":  Uint16,
-			"uint8":   Byte,
+			"uint8":   Uint8,
 			"uintptr": Uintptr,
 			"byte":    Byte,
 			"float":   Float,
@@ -567,7 +579,7 @@ func PointerTo(t *Type) *Type {
 
 func IsInteger(t *Type) bool {
 	switch t {
-	case Int, Int64, Int32, Int16, Uint, Uint64, Uint32, Uint16, Byte:
+	case Int, Int64, Int32, Int16, Int8, Uint, Uint64, Uint32, Uint16, Uint8, Byte:
 		return true
 	default:
 		return false
